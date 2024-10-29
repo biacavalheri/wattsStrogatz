@@ -3,27 +3,46 @@
 #include "graph.h"
 
 int main() {
-    int num_vertices = 100; // Número de vértices
-    int num_vizinhos = 10;  // Cada vértice será conectado a num_vizinhos
-    double probabilidade_religar = 0.1; // Probabilidade de religar as arestas
+    int num_vertices;
+    int num_vizinhos;
+    double probabilidade;
     int **grafo;
 
-    // Aloca o grafo (matriz de adjacência)
-    grafo = alocar_grafo(num_vertices);
+    // Parâmetros para variação
+    int modelos = 2;  // 1 para ER, 2 para WS
+    double probabilidades[] = {0.1, 0.08, 0.05, 0.02, 0.01};
+    int num_vertices_variados[] = {100, 200, 500, 1000, 1500};
+    int num_vizinhos_ws[] = {10, 15, 20, 25, 30};  // Apenas para Watts-Strogatz
 
-    // Gera o grafo regular com num_vizinhos vizinhos por vértice
-    gerar_grafo_regular(grafo, num_vertices, num_vizinhos);
+    for (int modelo = 1; modelo <= modelos; modelo++) {  // Itera sobre os modelos
+        for (int p_idx = 0; p_idx < 5; p_idx++) {  // Itera sobre as probabilidades
+            probabilidade = probabilidades[p_idx];
 
-    // Religa arestas com a probabilidade fornecida
-    religar_arestas(grafo, num_vertices, num_vizinhos, probabilidade_religar);
+            for (int i = 0; i < 5; i++) {  // Itera sobre num_vertices_variados
+                num_vertices = num_vertices_variados[i];
+                num_vizinhos = num_vizinhos_ws[i];  // Apenas para WS
 
-    // Exibe o grafo (opcional)
-    exibir_grafo(grafo, num_vertices);
+                // Aloca o grafo
+                grafo = alocar_grafo(num_vertices);
 
-    calcular_limites_cromaticos(grafo, num_vertices);
+                if (modelo == 1) {  // Modelo Erdős-Rényi
+                    printf("\n--- Erdős-Rényi: N=%d, p=%.2f ---\n", 
+                           num_vertices, probabilidade);
+                    gerar_grafo_er(grafo, num_vertices, probabilidade);
+                } else if (modelo == 2) {  // Modelo Watts-Strogatz
+                    printf("\n--- Watts-Strogatz: N=%d, K=%d, p=%.2f ---\n", 
+                           num_vertices, num_vizinhos, probabilidade);
+                    gerar_grafo_ws(grafo, num_vertices, num_vizinhos, probabilidade);
+                }
 
-    // Libera a memória alocada para o grafo
-    liberar_grafo(grafo, num_vertices);
+                // Calcula e exibe limites cromáticos e clique máximo
+                calcular_limites_cromaticos(grafo, num_vertices);
+
+                // Libera a memória alocada para o grafo
+                liberar_grafo(grafo, num_vertices);
+            }
+        }
+    }
 
     return 0;
 }

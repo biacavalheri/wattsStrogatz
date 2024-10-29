@@ -25,5 +25,10 @@ int encontrar_maior_clique(int **grafo, int num_vertices);
 // Função para calcular limites cromáticos
 void calcular_limites_cromaticos(int **grafo, int num_vertices);
 
+// Gera um grafo Erdos-Renyi com arestas e vértices formados com uma probabilidade p
+void gerar_grafo_er(int **grafo, int num_vertices, double p);
+
+// Gera um grafo Watts-Strogatz com um grafo regular e, após, religando arestas com probabilidade p
+void gerar_grafo_ws(int **grafo, int num_vertices, int num_vizinhos, double p);
 
 #endif
