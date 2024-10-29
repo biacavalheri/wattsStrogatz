@@ -130,3 +130,25 @@ void calcular_limites_cromaticos(int **grafo, int num_vertices) {
     printf("Limite inferior para o número cromático (tamanho do maior clique): %d\n", maior_clique);
     printf("Limite superior para o número cromático (grau máximo + 1): %d\n", grau_maximo + 1);
 }
+
+// Função para gerar grafo Erdős-Rényi
+void gerar_grafo_er(int **grafo, int num_vertices, double p) {
+    srand(time(NULL));
+    for (int i = 0; i < num_vertices; i++) {
+        for (int j = i + 1; j < num_vertices; j++) {
+            if ((double)rand() / RAND_MAX < p) {
+                grafo[i][j] = 1;
+                grafo[j][i] = 1;
+            }
+        }
+    }
+}
+
+// Função para gerar grafo Watts-Strogatz
+void gerar_grafo_ws(int **grafo, int num_vertices, int num_vizinhos, double p) {
+    // Gera grafo regular primeiro
+    gerar_grafo_regular(grafo, num_vertices, num_vizinhos);
+    
+    // Religa arestas com a probabilidade p
+    religar_arestas(grafo, num_vertices, num_vizinhos, p);
+}
