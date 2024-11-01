@@ -23,7 +23,7 @@ int calcular_grau_maximo(int **grafo, int num_vertices);
 int encontrar_maior_clique(int **grafo, int num_vertices);
 
 // Função para calcular limites cromáticos
-void calcular_limites_cromaticos(int **grafo, int num_vertices);
+void calcular_limites_cromaticos(int **grafo, int num_vertices, int *limite_inferior, int *limite_superior);
 
 // Gera um grafo Erdos-Renyi com arestas e vértices formados com uma probabilidade p
 void gerar_grafo_er(int **grafo, int num_vertices, double p);

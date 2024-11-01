@@ -122,14 +122,19 @@ int encontrar_maior_clique(int **grafo, int num_vertices) {
     return maior_clique;
 }
 
-// Função para calcular limites cromáticos
-void calcular_limites_cromaticos(int **grafo, int num_vertices) {
+// Função para calcular limites cromáticos e retornar ambos os limites
+void calcular_limites_cromaticos(int **grafo, int num_vertices, int *limite_inferior, int *limite_superior) {
     int grau_maximo = calcular_grau_maximo(grafo, num_vertices);
     int maior_clique = encontrar_maior_clique(grafo, num_vertices);
 
-    printf("Limite inferior para o número cromático (tamanho do maior clique): %d\n", maior_clique);
-    printf("Limite superior para o número cromático (grau máximo + 1): %d\n", grau_maximo + 1);
+    // Atribui os valores dos limites para os ponteiros fornecidos
+    *limite_inferior = maior_clique;
+    *limite_superior = grau_maximo + 1;
+
+    printf("Limite inferior (maior clique): %d\n", *limite_inferior);
+    printf("Limite superior (grau máximo + 1): %d\n", *limite_superior);
 }
+
 
 // Função para gerar grafo Erdős-Rényi
 void gerar_grafo_er(int **grafo, int num_vertices, double p) {
