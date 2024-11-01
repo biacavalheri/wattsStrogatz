@@ -38,9 +38,14 @@ Esses modelos são amplamente utilizados em teoria de grafos para estudar a cone
 
 ### Built With
 
-- Linguagem C
-- [GCC](https://gcc.gnu.org/) para compilação
-- [GitHub](https://github.com/) para versionamento
+Este projeto foi desenvolvido com as seguintes tecnologias:
+
+- **C**: Para a implementação dos modelos de geração de grafos e cálculos de limites.
+- **Python 3**: Para análise estatística e geração de gráficos a partir dos resultados.
+- **GCC**: Para compilar os arquivos `.c`.
+- **Pandas**: Manipulação de dados em Python.
+- **Matplotlib & Seaborn**: Para a criação de gráficos visualmente claros.
+- **GitHub**: Para controle de versão e colaboração.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -49,30 +54,66 @@ Esses modelos são amplamente utilizados em teoria de grafos para estudar a cone
 
 ### Pré-requisitos
 
-- **Compilador GCC** ou similar.
-- **Make** (opcional) para automação de compilação.
+Para configurar e rodar este projeto, você precisará de:
+
+- **GCC**: Para compilar os arquivos `.c`.
+- **Python 3** e bibliotecas:
+   ```bash
+  pip install pandas matplotlib seaborn
+
+  // ou no Ubuntu:
+  sudo apt install python3-pandas
+  sudo apt install python3-matplotlib
+  sudo apt install python3-seaborn
+  ```
 
 ### Instalação
 
-1. **Clone o repositório**:
+1. **Clone o repositório:**
    ```bash
-   git clone https://github.com/seu-usuario/projeto-grafos.git
+    git clone https://github.com/seu-usuario/projeto-grafos.git
+   ```
+2. **Estrutura do projeto:**
 
-2. **Compilação**:
+      Organize os arquivos nas seguintes pastas:
+    - statistics/: Scripts Python para análise e geração de gráficos.
+    - charts/: Imagens geradas dos gráficos.
+    - results/: Arquivos .csv com os resultados.
+
+3. **Compilação e execução:**
    ```bash
    gcc main.c graph.c -o grafos -Wall -Wextra -pedantic
+   ./grafos
+   ```
+4. **Flags:**
+    - **-Wall:** Habilita todos os avisos comuns (warnings) durante a compilação.
+    - **-Wextra:** Ativa avisos adicionais que não estão inclusos em -Wall.
+    - **-pedantic:** Garante que o código segue estritamente o padrão C.
 
-3. Flags
-- **-Wall:** Habilita todos os avisos comuns (warnings) durante a compilação.
-- **-Wextra:** Ativa avisos adicionais que não estão inclusos em -Wall.
-- **-pedantic:** Garante que o código segue estritamente o padrão C.
+5. **Análise dos dados com Python:**
+    - Para calcular estatísticas (média e desvio padrão) e consolidar resultados:
+    - Esse script lê os arquivos ```resultados*.csv```, calcula as estatísticas e gera ```estatisticas_modelo1.csv``` e ```estatisticas_modelo2.csv``` na pasta ```results/```.
+     ```bash
+      python statistics/analysis.py
+      // ou em Ubuntu
+      python3 statistics/analysis.py
+     ```
+
+6. Geração dos gráficos:
+    - Para calcular estatísticas (média e desvio padrão) e consolidar resultados:
+    - Esse script lê os arquivos ```resultados*.csv```, calcula as estatísticas e gera ```estatisticas_modelo1.csv``` e ```estatisticas_modelo2.csv``` na pasta ```results/```.
+     ```bash
+      python statistics/graphics.py
+      // ou em Ubuntu
+      python3 statistics/graphics.py
+     ```
 
 ### Uso
 
 O programa permite a análise dos seguintes modelos de grafos:
 
-Erdős-Rényi: A probabilidade de uma aresta entre dois vértices é p.
-Watts-Strogatz: Começa como um grafo regular, e as arestas são religadas com uma probabilidade p.
+- **Erdős-Rényi:** A probabilidade de uma aresta entre dois vértices é ```p```.
+- **Watts-Strogatz:** Começa como um grafo regular, e as arestas são religadas com uma probabilidade ```p```.
 
 
 1. **Exemplo de saída**:
@@ -82,6 +123,16 @@ Watts-Strogatz: Começa como um grafo regular, e as arestas são religadas com u
 
     --- Watts-Strogatz: N=200, K=15, p=0.08 ---
     Calculando limites cromáticos...
+
+2. **Estrutura dos Resultados:**
+Cada execução gera arquivos .csv com o seguinte formato:
+
+- Modelo: Identificador do modelo de grafo.
+- Vertices: Número de vértices.
+- Probabilidade: Probabilidade de conexão.
+- NumVizinhos: Número de vizinhos (apenas para Watts-Strogatz).
+- LimiteInferior: Limite inferior do número cromático.
+- LimiteSuperior: Limite superior do número cromático.
 
 Parâmetros configuráveis:
 
@@ -94,10 +145,10 @@ Parâmetros configuráveis:
 <!-- ROADMAP -->
 ## Roadmap
 
-- [X] Implementação dos modelos de grafos.
-- [X] Cálculo de limites cromáticos e maior clique.
-- [ ] Cálculo da média e desvio padrão.
-- [ ] Análise de dados em tabelas e gráficos
+- [X] Implementação dos modelos de grafos (Erdős-Rényi e Watts-Strogatz).
+- [X] Cálculo de métricas: limites cromáticos e maior clique.
+- [X] Criação de arquivos .csv com os resultados dos modelos para múltiplos parâmetros.
+- [X] Análise de dados em tabelas e gráficos
 - [ ] Slides para apresetação
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -125,7 +176,7 @@ Jeferson Filho <br>
 <!-- ACKNOWLEDGMENTS -->
 ## Acknowledgments
 Proposta de projeto <br>
-[Trabalho - Grafos Watts-Strogatz](https://github.com/user-attachments/files/17483678/Trabalho2.pdf)
+[Trabalho: Grafos Watts-Strogatz](https://github.com/user-attachments/files/17483678/Trabalho2.pdf)
 
 <!-- Project Presentation <br>
 [![Google][Google-url]][presentation-url] -->
